@@ -5,6 +5,8 @@ import com.mycompany.agenciabancaria.model.Titular;
 
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.List;
+import com.mycompany.agenciabancaria.model.ArquivoUtil;
 
 public class AgenciaBancariaView {
 
@@ -76,17 +78,26 @@ public class AgenciaBancariaView {
         String cpf = scanner.nextLine();
         System.out.print("Informe sua senha: ");
         String senha = scanner.nextLine();
-
-        Titular usuario = controller.autenticarUsuario(cpf, senha);
-
-        if (usuario != null) {
-            System.out.println("Bem vind@, " + usuario.getNome() + "!");
-            exibirMenuOperacoes();
-        } else {
-            System.out.println("Credenciais inválidas, verifique o CPF ou senha.");
-            voltarMenu();
+    
+        try {
+            // Carrega os usuários do arquivo
+            List<Titular> usuarios = ArquivoUtil.carregarUsuarios("data/usuarios.csv");
+    
+            // Autentica o usuário
+            Titular usuario = controller.autenticarUsuario(cpf, senha, usuarios);
+    
+            if (usuario != null) {
+                System.out.println("Bem vind@, " + usuario.getNome() + "!");
+                exibirMenuOperacoes();
+            } else {
+                System.out.println("Credenciais inválidas, verifique o CPF ou senha.");
+                voltarMenu();
+            }
+        } catch (IOException e) {
+            System.out.println("Erro ao carregar usuários: " + e.getMessage());
         }
     }
+    
 
     /**
      * Exibe o menu de operações do usuário logado.

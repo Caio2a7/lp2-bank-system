@@ -8,9 +8,9 @@ public abstract class Conta {
     /**
      * Construtor para inicializar uma nova conta.
      *
-     * @param numero      O número da conta.
+     * @param numero       O número da conta.
      * @param saldoInicial O saldo inicial da conta.
-     * @param dono        O titular da conta.
+     * @param dono         O titular da conta.
      */
     public Conta(int numero, double saldoInicial, Titular dono) {
         this.numero = numero;
@@ -34,6 +34,15 @@ public abstract class Conta {
      */
     public double getSaldo() {
         return saldo;
+    }
+
+    /**
+     * Método para retornar o titular da conta.
+     * 
+     * @return O titular da conta.
+     */
+    public Titular getDono() {
+        return dono;
     }
 
     /**
@@ -62,8 +71,8 @@ public abstract class Conta {
     /**
      * Método para transferir um valor de uma conta para outra.
      * 
-     * @param valor          O valor a ser transferido.
-     * @param ContaDestino   A conta de destino para onde o valor será transferido.
+     * @param valor        O valor a ser transferido.
+     * @param ContaDestino A conta de destino para onde o valor será transferido.
      * @return Retorna true se a transferência foi bem-sucedida, e false caso contrário.
      */
     public boolean transferir(double valor, Conta ContaDestino) {
